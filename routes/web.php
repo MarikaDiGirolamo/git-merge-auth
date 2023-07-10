@@ -16,24 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 // Route::get("/admin", [DashboardController::class, 'index'])->name('admin.dashboard');
 
 Route::middleware(['auth'])
- 	->prefix('admin') //definisce il prefisso "admin/" per le rotte di questo gruppo
- 	->name('admin.') //definisce il pattern con cui generare i nomi delle rotte cioè "admin.qualcosa"
- 	->group(function () {
- 	
- 		//Siamo nel gruppo quindi:
- 		// - il percorso "/" diventa "admin/"
- 		// - il nome della rotta ->name("dashboard") diventa ->name("admin.dashboard")
- 		// - il controller DashboardController appartiene al namespace Admin
- 		Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+	->prefix('admin') //definisce il prefisso "admin/" per le rotte di questo gruppo
+	->name('admin.') //definisce il pattern con cui generare i nomi delle rotte cioè "admin.qualcosa"
+	->group(function () {
 
-        Route::resource('posts', PostController::class);
+		//Siamo nel gruppo quindi:
+		// - il percorso "/" diventa "admin/"
+		// - il nome della rotta ->name("dashboard") diventa ->name("admin.dashboard")
+		// - il controller DashboardController appartiene al namespace Admin
+		Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-});
+		Route::resource('posts', PostController::class);
+	});
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
